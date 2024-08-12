@@ -1,0 +1,35 @@
+{
+  "name": "cypress_framework-bdd",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "npx cypress run",
+    "cloudsmoke": "npx cypress run --record --key 21d711ee-2967-4521-a31c-1ea71f153722 --spec cypress/e2e/framework/Angular_HomePage.js --headed --browser chrome",
+    "cloudfull": "npx cypress run --record --key 21d711ee-2967-4521-a31c-1ea71f153722 --headed --browser chrome",
+    "bddsmoke": "npx cypress run --record --key 21d711ee-2967-4521-a31c-1ea71f153722 --spec cypress/e2e/frameworkbdd/featurefiles/todoApp.feature",
+    "bddfull": "npx cypress run --record --key 21d711ee-2967-4521-a31c-1ea71f153722 --spec cypress/e2e/frameworkbdd/featurefiles/*.feature --headed --browser chrome",
+    "bddlocalapi": "npx cypress run --spec cypress/e2e/frameworkbdd/featurefiles/apiRequest.feature --headed --browser chrome",
+    "bddlocalsmoke": "npx cypress run --spec cypress/e2e/frameworkbdd/featurefiles/todoApp.feature --headed --browser chrome"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-iframe": "^1.0.1",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress": "^13.13.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "cosmiconfig": "9.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.13.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "cypress/e2e/frameworkbdd/featurefiles"
+  }
+}
