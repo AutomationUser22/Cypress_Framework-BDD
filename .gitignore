@@ -36,3 +36,7 @@ next-env.d.ts
 
 #package-lock.json
 package-lock.json
+
+# for excluding Local reports and screenshots
+/cypress/reports
+/cypress/screenshots
