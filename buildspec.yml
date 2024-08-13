@@ -33,3 +33,8 @@ phases:
       # Additional configuration → Environment variables
       - dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
       - npx cypress run --record --parallel --ci-build-id $CODEBUILD_INITIATOR
+
+artifacts:
+  files: ".html"
+  base-directory: ./
+  name: index.zip
