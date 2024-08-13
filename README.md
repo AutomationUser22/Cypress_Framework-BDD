@@ -8,3 +8,5 @@ This is a Test Automation framework mainly developed with help of cypress
 4. Github (To host the code on repo)
 5. AWS code build (To build and test the application/ No build required as testing website directly but can be done)
 6. Cypress cloud (To record all test execution related on cloud)
+7. Added AWS SNS notification as per build status. Refer :- https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html#sample-build-notifications-ref
+
