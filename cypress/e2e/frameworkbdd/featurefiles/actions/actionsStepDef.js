@@ -74,7 +74,8 @@ Then('TextBox should be cleared', function (){
 })
 
 When('User type in form and submit',function () {
-    actionPage.getFormElement().find('[type="text"]').type('HALFOFF').submit()
+    actionPage.getFormElement().find('[type="text"]').type('HALFOFF')
+    actionPage.getFormElement().submit()
 })
 
 Then('Success message should be displayed', function () {
