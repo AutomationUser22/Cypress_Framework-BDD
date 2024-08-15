@@ -30,6 +30,7 @@ phases:
       - npx cypress run --record $CODEBUILD_INITIATOR
 
 artifacts:
-  files: ''
+  files:
+    - 'index.html'
   base-directory: 'cypress/reports/html/'
   name: index.html
