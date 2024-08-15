@@ -23,18 +23,13 @@ phases:
       - npm install
   build:
     commands:
-      # Starts web server for E2E tests - replace with your own server invocation
-      # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
-      # Waits for above
-      # Records to Cypress Cloud
-      # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
-      # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
-      # in your AWS Codebuild project → Build details → Environment →
-      # Additional configuration → Environment variables
+      # Installing Amazon Linux dependencies
       - dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
+  test:
+    commands:
       - npx cypress run --record $CODEBUILD_INITIATOR
 
 artifacts:
-  files: ".html"
-  base-directory: ./
-  name: index.zip
+  files: ''
+  base-directory: 'cypress/reports/html/'
+  name: index.html
