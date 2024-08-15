@@ -32,7 +32,7 @@ phases:
       # in your AWS Codebuild project → Build details → Environment →
       # Additional configuration → Environment variables
       - dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
-      - npx cypress run --record --parallel --ci-build-id $CODEBUILD_INITIATOR
+      - npx cypress run --record --ci-build-id $CODEBUILD_INITIATOR
 
 artifacts:
   files: ".html"
