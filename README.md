@@ -10,4 +10,5 @@ This is a Test Automation framework mainly developed with help of cypress
 6. Cypress cloud (To record all test execution related on cloud)
 7. AWS SNS notification as per build status. Refer :- https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html#sample-build-notifications-ref
 8. AWS S3 to store code artifacts in this case test result report.
+9. AWS Eventbridge to initialize the email when build status is changed
 
