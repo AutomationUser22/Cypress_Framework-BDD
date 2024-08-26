@@ -15,7 +15,7 @@ module.exports = defineConfig({
     runMode: 1
   },
   e2e: {
-    specPattern: ['cypress/e2e', "**/*.feature"],
+    specPattern: ['cypress/e2e/frameworkbdd/featurefiles/*.feature'],
     baseUrl: 'https://rahulshettyacademy.com',
     setupNodeEvents(on) {
       on("file:preprocessor", cucumber());
