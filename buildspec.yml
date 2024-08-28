@@ -34,7 +34,7 @@ phases:
 
   post_build:
     commands:
-      - npx cypress run --record $CODEBUILD_INITIATOR
+      - npx cypress run --record $CODEBUILD_INITIATOR --headed --browser chrome
       - aws sns publish --topic-arn arn:aws:sns:us-east-1:444082408997:Cypress_BDD_Framework_Email_with_Status_Report --message "Build complete"
 
 artifacts:
