@@ -21,10 +21,16 @@ phases:
       - export COMMIT_INFO_SHA="$(git log -1 --pretty=%H)"
       - export COMMIT_INFO_REMOTE="$(git config --get remote.origin.url)"
       - npm install
+
   build:
     commands:
       # Installing Amazon Linux dependencies
       - dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
+      # Installing chrome
+      - sudo yum install ./google-chrome-stable_current_x86_64.rpm
+      - sudo ln -s /usr/bin/google-chrome-stable /usr/bin/chromium
+      - curl https://intoli.com/install-google-chrome.sh | bash
+
   post_build:
     commands:
       - npx cypress run --record $CODEBUILD_INITIATOR
