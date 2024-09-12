@@ -1,0 +1,461 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:us-east-1:000000000000:generatedTemplate/a47b69d1-e24d-4941-a49d-a08b020b8549"
+Parameters:
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3ObjectVersionkSS7n:
+    NoEcho: "true"
+    Type: "String"
+    Description: "For versioned objects, the version of the deployment package object\
+      \ to use."
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeSourceKMSKeyArnRzTvX:
+    NoEcho: "true"
+    Type: "String"
+    Description: "Value of write only property Code/SourceKMSKeyArn of resource LambdaFunction00CypressBDDSendingStatusReport00hJFmT."
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeImageUriOy77N:
+    NoEcho: "true"
+    Type: "String"
+    Description: "URI of a [container image](https://docs.aws.amazon.com/lambda/latest/dg/lambda-images.html)\
+      \ in the Amazon ECR registry."
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3Bucketxrcap:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account."
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeZipFileyFvmf:
+    NoEcho: "true"
+    Type: "String"
+    Description: "(Node.js and Python) The source code of your Lambda function. If\
+      \ you include your function source inline with this parameter, CFN places it\
+      \ in a file named ``index`` and zips it to create a [deployment package](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html).\
+      \ This zip file cannot exceed 4MB. For the ``Handler`` property, the first part\
+      \ of the handler identifier must be ``index``. For example, ``index.handler``.\n\
+      \  For JSON, you must escape quotes and special characters such as newline (``\\\
+      n``) with a backslash.\n If you specify a function that interacts with an AWS\
+      \ CloudFormation custom resource, you don't have to write your own functions\
+      \ to send responses to the custom resource that invoked the function. AWS CloudFormation\
+      \ provides a response module ([cfn-response](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html))\
+      \ that simplifies sending responses. See [Using Lambda with CloudFormation](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudformation.html)\
+      \ for details."
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3Keycn0ty:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package."
+Resources:
+  IAMManagedPolicy00policyCypressBddS3bucketaccess00smnkM:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "Cypress-Bdd-S3-bucketaccess"
+      Path: "/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:s3:::*"
+          Action: "s3:GetBucketLocation"
+          Effect: "Allow"
+          Sid: "VisualEditor0"
+        - Resource: "arn:aws:s3:::cypress-bdd-framework/*"
+          Action:
+          - "s3:PutObject"
+          - "s3:GetObject"
+          - "s3:ListBucket"
+          Effect: "Allow"
+          Sid: "VisualEditor1"
+        - Resource: "arn:aws:s3:::*"
+          Action: "s3:ListAllMyBuckets"
+          Effect: "Allow"
+          Sid: "VisualEditor2"
+      Roles:
+      - Ref: "IAMRole00CypressBDDSendingStatusReportrolezpfvhkrh00P6IlO"
+      - Ref: "IAMRole00codebuildCypressFrameworkNewservicerole00n4Fav"
+      Users: []
+  LogsLogGroup00awscodebuildCypressFrameworkBDD00b1TwR:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogGroupClass: "STANDARD"
+      LogGroupName: "/aws/codebuild/Cypress_Framework-BDD"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+      DataProtectionPolicy: {}
+  LambdaFunction00CypressBDDSendingStatusReport00hJFmT:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 900
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        SourceKMSKeyArn:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeSourceKMSKeyArnRzTvX"
+        S3ObjectVersion:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3ObjectVersionkSS7n"
+        S3Bucket:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3Bucketxrcap"
+        ZipFile:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeZipFileyFvmf"
+        ImageUri:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeImageUriOy77N"
+        S3Key:
+          Ref: "LambdaFunction00CypressBDDSendingStatusReport00hJFmTCodeS3Keycn0ty"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00CypressBDDSendingStatusReportrolezpfvhkrh00P6IlO"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "Cypress_BDD_Sending_Status_Report"
+      Runtime: "python3.12"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/Cypress_BDD_Sending_Status_Report"
+      RecursiveLoop: "Terminate"
+      EphemeralStorage:
+        Size: 512
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+      Architectures:
+      - "x86_64"
+  LambdaPermission00functionCypressBDDSendingStatusReport00t3Jao:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00CypressBDDSendingStatusReport00hJFmT"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn:
+        Ref: "SNSTopic00CypressBDDFrameworkEmailwithStatusReport00BuS9k"
+      Principal: "sns.amazonaws.com"
+  IAMRole00codebuildCypressFrameworkNewservicerole00n4Fav:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::000000000000:policy/Cypress-Bdd-S3-bucketaccess"
+      - "arn:aws:iam::000000000000:policy/service-role/CodeBuildSecretsManagerPolicy-Cypress_Framework-BDD-us-east-1"
+      - "arn:aws:iam::000000000000:policy/service-role/CodeBuildBasePolicy-Cypress-Framework-New-us-east-1"
+      - "arn:aws:iam::000000000000:policy/service-role/CodeBuildCloudWatchLogsPolicy-Cypress_Framework-BDD-us-east-1"
+      MaxSessionDuration: 3600
+      RoleName: "codebuild-Cypress-Framework-New-service-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "codebuild.amazonaws.com"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+  SNSTopic00CodeBuildCypressBDDFramework00klypb:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::SNS::Topic"
+    DeletionPolicy: "Retain"
+    Properties:
+      TracingConfig: "PassThrough"
+      DisplayName: "Cypress-BDD-Framework"
+      FifoTopic: false
+      Subscription:
+      - Endpoint: "mahajavi@amazon.com"
+        Protocol: "email"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+      ArchivePolicy: {}
+      TopicName: "CodeBuild_Cypress_BDD_Framework"
+  EventsEventBus00default00fwVj8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Events::EventBus"
+    DeletionPolicy: "Retain"
+    Properties:
+      Tags: []
+      Name: "default"
+  S3Bucket00cypressbddframework00Iqfru:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: "Retain"
+    Properties:
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        BlockPublicAcls: true
+      BucketName: "cypress-bdd-framework"
+      OwnershipControls:
+        Rules:
+        - ObjectOwnership: "BucketOwnerEnforced"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - BucketKeyEnabled: true
+          ServerSideEncryptionByDefault:
+            SSEAlgorithm: "AES256"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+  IAMManagedPolicy00policyserviceroleCodeBuildBasePolicyCypressFrameworkNewuseast100RLsD8:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "CodeBuildBasePolicy-Cypress-Framework-New-us-east-1"
+      Path: "/service-role/"
+      Description: "Policy used in trust relationship with CodeBuild"
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:secretsmanager:us-east-1:000000000000:secret:*"
+          Action: "secretsmanager:GetSecretValue"
+          Effect: "Allow"
+          Sid: "VisualEditor0"
+        - Resource: "*"
+          Action:
+          - "sns:CreateTopic"
+          - "sns:GetTopicAttributes"
+          - "sns:List*"
+          - "sns:Publish"
+          - "sns:SetTopicAttributes"
+          - "sns:Subscribe"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/Cypress_Framework-BDD"
+          - "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/Cypress_Framework-BDD:*"
+          Action:
+          - "logs:CreateLogGroup"
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:s3:::cypress-bdd-framework"
+          Action:
+          - "s3:PutObject"
+          - "s3:GetObject"
+          - "s3:GetObjectVersion"
+          - "s3:GetBucketAcl"
+          - "s3:GetBucketLocation"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:codebuild:us-east-1:000000000000:report-group/Cypress_Framework-BDD-*"
+          Action:
+          - "codebuild:CreateReportGroup"
+          - "codebuild:CreateReport"
+          - "codebuild:UpdateReport"
+          - "codebuild:BatchPutTestCases"
+          - "codebuild:BatchPutCodeCoverages"
+          Effect: "Allow"
+      Roles:
+      - Ref: "IAMRole00codebuildCypressFrameworkNewservicerole00n4Fav"
+      Users: []
+  SESEmailIdentity00mahajaviamazoncom00ih3Lu:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::SES::EmailIdentity"
+    DeletionPolicy: "Retain"
+    Properties:
+      ConfigurationSetAttributes:
+        ConfigurationSetName: "my-first-configuration-set"
+      DkimAttributes:
+        SigningEnabled: false
+      FeedbackAttributes:
+        EmailForwardingEnabled: true
+      EmailIdentity: "mahajavi@amazon.com"
+      DkimSigningAttributes:
+        NextSigningKeyLength: "RSA_1024_BIT"
+      MailFromAttributes:
+        BehaviorOnMxFailure: "USE_DEFAULT_VALUE"
+  IAMManagedPolicy00policyserviceroleCodeBuildSecretsManagerPolicyCypressFrameworkBDDuseast100ZQAyG:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "CodeBuildSecretsManagerPolicy-Cypress_Framework-BDD-us-east-1"
+      Path: "/service-role/"
+      Description: "Policy used in trust relationship with CodeBuild"
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource:
+          - "arn:aws:secretsmanager:us-east-1:000000000000:secret:/CodeBuild/*"
+          Action:
+          - "secretsmanager:GetSecretValue"
+          Effect: "Allow"
+      Roles:
+      - Ref: "IAMRole00codebuildCypressFrameworkNewservicerole00n4Fav"
+      Users: []
+  IAMRole00CypressBDDSendingStatusReportrolezpfvhkrh00P6IlO:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::000000000000:policy/Cypress-Bdd-S3-bucketaccess"
+      - "arn:aws:iam::000000000000:policy/service-role/AWSLambdaBasicExecutionRole-cf8ac8b8-3507-4ba6-9756-bb0d6ee8dc23"
+      MaxSessionDuration: 3600
+      RoleName: "Cypress_BDD_Sending_Status_Report-role-zpfvhkrh"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource:
+            - "arn:aws:ses:us-east-1:000000000000:identity/mahajavi@amazon.com"
+            - "arn:aws:ses:us-east-1:000000000000:configuration-set/my-first-configuration-set"
+            Action: "ses:SendRawEmail"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+        PolicyName: "SES_For_Send_Raw_Email"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+  IAMManagedPolicy00policyserviceroleCodeBuildManagedSecretPolicyCypressFrameworkBDDuseast100dcjO6:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "CodeBuildManagedSecretPolicy-Cypress_Framework-BDD-us-east-1"
+      Path: "/service-role/"
+      Description: "Policy used in trust relationship with CodeBuild"
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:ssm:us-east-1:000000000000:parameter/CodeBuild/*"
+          Action:
+          - "ssm:GetParameters"
+          Effect: "Allow"
+      Roles: []
+      Users: []
+  LogsLogGroup00awslambdaCypressBDDSendingStatusReport00oAqFe:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogGroupClass: "STANDARD"
+      LogGroupName: "/aws/lambda/Cypress_BDD_Sending_Status_Report"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+      DataProtectionPolicy: {}
+  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRolecf8ac8b835074ba69756bb0d6ee8dc2300HUeQq:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "AWSLambdaBasicExecutionRole-cf8ac8b8-3507-4ba6-9756-bb0d6ee8dc23"
+      Path: "/service-role/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:logs:us-east-1:000000000000:*"
+          Action: "logs:CreateLogGroup"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:logs:us-east-1:000000000000:log-group:/aws/lambda/Cypress_BDD_Sending_Status_Report:*"
+          Action:
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Effect: "Allow"
+      Roles:
+      - Ref: "IAMRole00CypressBDDSendingStatusReportrolezpfvhkrh00P6IlO"
+      Users: []
+  SNSTopic00CypressBDDFrameworkEmailwithStatusReport00BuS9k:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::SNS::Topic"
+    DeletionPolicy: "Retain"
+    Properties:
+      TracingConfig: "PassThrough"
+      DisplayName: "Cypress_BDD_Framework_Email_with_Status_Report"
+      FifoTopic: false
+      Subscription:
+      - Endpoint:
+          Fn::GetAtt:
+          - "LambdaFunction00CypressBDDSendingStatusReport00hJFmT"
+          - "Arn"
+        Protocol: "lambda"
+      - Endpoint: "mahajavi@amazon.com"
+        Protocol: "email"
+      Tags:
+      - Value: ""
+        Key: "Cypress"
+      ArchivePolicy: {}
+      TopicName: "Cypress_BDD_Framework_Email_with_Status_Report"
+  IAMManagedPolicy00policyserviceroleCodeBuildCloudWatchLogsPolicyCypressFrameworkBDDuseast1004lyDI:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "CodeBuildCloudWatchLogsPolicy-Cypress_Framework-BDD-us-east-1"
+      Path: "/service-role/"
+      Description: "Policy used in trust relationship with CodeBuild"
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource:
+          - "arn:aws:logs:us-east-1:000000000000:log-group:aws/codebuild/CypressFrameWorkBDD"
+          - "arn:aws:logs:us-east-1:000000000000:log-group:aws/codebuild/CypressFrameWorkBDD:*"
+          Action:
+          - "logs:CreateLogGroup"
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Effect: "Allow"
+      Roles:
+      - Ref: "IAMRole00codebuildCypressFrameworkNewservicerole00n4Fav"
+      Users: []
+  EventsRule00ruleCypressBDDFramework00nEB0h:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Events::Rule"
+    DeletionPolicy: "Retain"
+    Properties:
+      EventBusName:
+        Ref: "EventsEventBus00default00fwVj8"
+      EventPattern:
+        detail-type:
+        - "CodeBuild Build State Change"
+        source:
+        - "aws.codebuild"
+        detail:
+          build-status:
+          - "SUCCEEDED"
+          - "FAILED"
+          - "STOPPED"
+          project-name:
+          - "Cypress_Framework-BDD"
+      Targets:
+      - InputTransformer:
+          InputTemplate: "\"'<project-name>' has reached the build status of '<build-status>'.\""
+          InputPathsMap:
+            build-status: "$.detail.build-status"
+            project-name: "$.detail.project-name"
+        Arn:
+          Ref: "SNSTopic00CodeBuildCypressBDDFramework00klypb"
+        Id: "Idb7008744-1f69-4361-a621-79facacce4bb"
+      Id: "Cypress-BDD-Framework"
+      State: "ENABLED"
+      Name: "Cypress-BDD-Framework"
